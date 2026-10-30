@@ -1,0 +1,226 @@
+/* ============================================
+   2026年カレンダー style.css
+   配色: 生成り地 / 墨 / 朱(日曜・祝日) / 藍(土曜)
+   ============================================ */
+
+:root {
+  --paper: #f7f6f2;      /* 生成り */
+  --card: #ffffff;
+  --ink: #33312d;        /* 墨 */
+  --ink-soft: #8a867d;
+  --line: #e6e3db;
+  --shu: #d3381c;        /* 朱: 日曜・祝日 */
+  --shu-bg: #fdf0ed;
+  --ai: #2a5caa;         /* 藍: 土曜 */
+  --ai-bg: #eef3fa;
+  --today: #f5c518;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", Meiryo, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 40px 64px;
+}
+
+/* ---------- ヘッダー ---------- */
+
+.site-head {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.site-head h1 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.year {
+  font-size: 64px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+.year-ja {
+  font-size: 26px;
+  margin-left: 6px;
+}
+
+.sub {
+  margin: 4px 0 12px;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.legend {
+  margin: 0;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.lg {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 3px;
+  margin: 0 4px;
+  border: 1px solid var(--line);
+  background: var(--card);
+}
+
+.lg.holiday { color: var(--shu); background: var(--shu-bg); border-color: #f2d5cd; }
+.lg.sun     { color: var(--shu); }
+.lg.sat     { color: var(--ai); }
+
+/* ---------- 月グリッド ---------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.month {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--shu);
+  border-radius: 6px;
+  padding: 14px 14px 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.month-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+
+.month-num {
+  font-size: 28px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.month-num .gatsu {
+  font-size: 15px;
+  font-weight: 500;
+  margin-left: 2px;
+}
+
+.month-en {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ---------- カレンダー表 ---------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-variant-numeric: tabular-nums;
+}
+
+th {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  padding: 4px 0;
+}
+
+th.sun { color: var(--shu); }
+th.sat { color: var(--ai); }
+
+td {
+  text-align: center;
+  font-size: 14px;
+  padding: 5px 0;
+  border-radius: 4px;
+}
+
+td.sun { color: var(--shu); }
+td.sat { color: var(--ai); }
+
+td.holiday {
+  color: var(--shu);
+  background: var(--shu-bg);
+  font-weight: 600;
+}
+
+td.today {
+  outline: 2px solid var(--today);
+  outline-offset: -2px;
+  font-weight: 700;
+}
+
+td.empty { background: none; }
+
+/* ---------- 祝日リスト ---------- */
+
+.holidays {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 8px 2px 0;
+  border-top: 1px dashed var(--line);
+  font-size: 12px;
+  color: var(--ink);
+  min-height: 24px;
+}
+
+.holidays li { line-height: 1.7; }
+
+.holidays .hd {
+  display: inline-block;
+  min-width: 44px;
+  color: var(--shu);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.holidays.none li { color: var(--ink-soft); }
+
+/* ---------- フッター ---------- */
+
+.site-foot {
+  margin-top: 32px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+/* ---------- レスポンシブ ---------- */
+
+@media (max-width: 760px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .wrap { padding: 36px 24px 48px; }
+  .year { font-size: 48px; }
+}
+
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; }
+  .wrap { padding: 28px 16px 40px; }
+}
+
+/* 印刷用 */
+@media print {
+  body { background: #fff; }
+  .month { break-inside: avoid; box-shadow: none; }
+  .site-foot { display: none; }
+}
